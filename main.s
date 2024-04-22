@@ -88,6 +88,57 @@ fin_calc:
         divf    f5, f1, f3
 
         sf      secuencia_valor_medio, f5
+        
+        ;; Lista
+        ; f1:  vIni      el valor inicial
+        ; f3:  vT        el número de valores de secuencia 
+        ; f5:  vMed      la media
+        ; f7:  vMax      el valor máximo
+        ; f9:  vT/vMax
+        ; f11: vT/vIni
+        ; f13: vT/vMed
+        lw      r1, valor_inicial
+        movi2fp f1, r1
+        movi2fp f7, r2
+        divf    f9, f3, f7
+        divf    f11, f3, f1
+        divf    f13, f3, f5
+
+        ; vIni*vT
+        multf   f15, f1, f3
+        sf      lista, f15
+
+        ; vMax*vT
+        multf   f17, f7, f3
+        sf      lista+4, f17
+
+        ; vMed*vT
+        multf   f19, f5, f3
+        sf      lista+8, f19
+
+        ; vIni * vT/vMax
+        multf   f15, f1, f9
+        sf      lista+12, f15
+
+        ; vIni * vT/vMed
+        multf   f17, f1, f13
+        sf      lista+16, f17
+
+        ; vMax * vT/vIni 
+        multf   f19, f7, f11
+        sf      lista+20, f19
+
+        ; vMax * vT/vMed
+        multf   f15, f7, f13
+        sf      lista+24, f15
+
+        ; vMed * vT/vIni
+        multf   f17, f5, f11
+        sf      lista+28, f17
+
+        ; vMed * vT/vMax 
+        multf   f19, f5, f9
+        sf      lista+32, f19
 
         trap 0;
 
