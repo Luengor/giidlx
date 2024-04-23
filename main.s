@@ -15,9 +15,6 @@ lista_valor_medio:      .float      0
                         .text
                         .global     main
 
-
-
-
 ; Tabulaciones normales vv
 main:
         ; Cargamos los valores 
