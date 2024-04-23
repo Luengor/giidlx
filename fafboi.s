@@ -55,13 +55,13 @@ calc_loop:
         ; Sumamos en vez de multiplicar (opt: 5)
         ; r6 <- (r1 + r1)
         ; r1 <- (r6 + r1) 
-        ; r1 <- (r1 +  1)
         add     r6, r1, r1
         add     r1, r6, r1
 
         ; Comprobamos si es el valor máximo (opt: 6)
         sle     r29, r2, r1  ; r29 == 1 si r2 <= r1
 
+        ; r1 <- (r1 +  1)
         addi    r1, r1, #1
 
         beqz    r29, calc_loop 
