@@ -35,11 +35,13 @@ calc_loop:
         sw      secuencia(r4), r1
         addi    r4, r4, #4
 
+        ; Comparamos el valor actual con el máximo (opt: 2)
+        slt     r29, r2, r1  ; r29 == 1 si r2 < r1
+
         ; Sumar al valor medio
         add    r3, r3, r1
 
         ; Comprobamos si es el valor máximo
-        slt     r29, r2, r1  ; r29 == 1 si r2 < r1
         beqz    r29, salir_uno
 
         ; Cambiar el máximo             TODO: mirar esto
