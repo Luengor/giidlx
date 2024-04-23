@@ -27,6 +27,9 @@ main:
         ; R4 es el puntero al valor a escribir de secuencia Y el tamaño de la 
         ; secuencia * 4
         
+        ; Cargamos 1/9 para dentro de ~150 líneas
+        lf      f23, uno_entre_nueve
+
         ; Escribimos el máximo
         sw      secuencia_maximo, r1
 
@@ -118,9 +121,9 @@ fin_calc:
         ; f13: vT/vMed
         ; f21: valor medio de la lista
         lf      f1, valor_inicial
-        cvti2f  f1, f1
 
         movi2fp f7, r2
+        cvti2f  f1, f1
         cvti2f  f7, f7
 
         divf    f9, f3, f7
@@ -173,7 +176,6 @@ fin_calc:
         addf    f21, f21, f19
 
         ;; Valor medio de la lista
-        lf      f23, uno_entre_nueve
         multf   f21, f21, f23
         sf      lista_valor_medio, f21
 
