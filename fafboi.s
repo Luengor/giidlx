@@ -68,6 +68,15 @@ calc_loop:
         sw      secuencia_maximo, r1
         lw      r2, secuencia_maximo
 
+        ;;; Otro ciclo par aquí dentro      --------------------
+
+        sw      secuencia(r4), r1   ; Guardamos en secuencia 
+        addi    r4, r4, #4          ; Sumamos al indice de secuencia
+        add     r3, r3, r1          ; Sumamos al valor medio
+        srli    r1, r1, #1          ; Dividimos entre 2
+
+        ;;; ----------------------------------------------------
+
         j calc_loop
         
 es_par:
