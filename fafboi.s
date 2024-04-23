@@ -62,7 +62,12 @@ salir_uno:
         beqz    r29, es_par
 
         ; Es impar
-        multu   r1, r1, r30
+        ; Sumamos en vez de multiplicar (opt: 5)
+        ; r6 <- (r1 + r1)
+        ; r1 <- (r6 + r1) 
+        ; r1 <- (r1 +  1)
+        add     r6, r1, r1
+        add     r1, r6, r1
         addi    r1, r1, #1
 
         j calc_loop
