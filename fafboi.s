@@ -41,6 +41,9 @@ calc_loop:
         ; Sumar al valor medio
         add    r3, r3, r1
 
+        ; Comprobamos si el valor es 1 (opt: 3)
+        seqi    r28, r1, #1
+
         ; Comprobamos si es el valor máximo
         beqz    r29, salir_uno
 
@@ -49,10 +52,8 @@ calc_loop:
         lw      r2, secuencia_maximo
 
 salir_uno:
-        ; Comprobamos si el valor es 1
-        seqi    r29, r1, #1
-        bnez    r29, fin_calc
-
+        ; Salimos si el valor era 1
+        bnez    r28, fin_calc
 
         ;; Cálculo de secuencia 
         ; Comprobamos si es par
