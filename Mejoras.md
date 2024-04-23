@@ -28,3 +28,6 @@ Optimizaciones:
     6.-
 
 
+    12.- Recolocar las divisiones para evitar los structural stall lo maximo posible
+
+    
