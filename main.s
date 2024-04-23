@@ -12,15 +12,12 @@ lista:                  .space      9*4
 lista_valor_medio:      .float      0
 ;; FIN VARIABLES DE ENTRADA Y SALIDA
 
-tres:                   .byte       3
-
-PrintFormat:            .asciiz     "%d\n"
-                        .align      2
-PrintPar:               .word       PrintFormat
-PrintValue:             .space      4
+tres:                   .word       3
 
                         .text
                         .global     main
+
+
 
 
 ; Tabulaciones normales vv
@@ -34,7 +31,7 @@ main:
         ; secuencia * 4
 
         ; R30 es 3
-        lbu     r30, tres
+        lw      r30, tres
         
 
         ; Bucle chulo de cálculo
