@@ -2,7 +2,7 @@
 
 ;; VARIABLES DE ENTRADA Y SALIDA: NO MODIFICAR ORDEN
 ; VARIABLE DE ENTRADA: (SE PODRA MODIFICAR EL VALOR ENTRE 1 Y 100)
-valor_inicial:          .word       97
+valor_inicial:          .word       97 
 ;; VARIABLES DE SALIDA:
 secuencia:              .space      120*4
 secuencia_tamanho:      .word       0
@@ -76,10 +76,9 @@ fin_calc:
         ; Calcular media
         movi2fp f1, r3
         movi2fp f3, r4
-        cvti2f  f3, f3
 
         divf    f5, f1, f3
-        cvti2f  f5, f5
+        cvti2f  f3, f3
 
         sf      secuencia_valor_medio, f5
         
