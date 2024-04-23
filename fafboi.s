@@ -52,12 +52,13 @@ calc_loop:
         lw      r2, secuencia_maximo
 
 salir_uno:
+        ; Comprobamos si es par     (opt: 4)
+        andi    r29, r1, #1     ; r29 == 1 si r1 es impar
+
         ; Salimos si el valor era 1
         bnez    r28, fin_calc
 
         ;; Cálculo de secuencia 
-        ; Comprobamos si es par
-        andi    r29, r1, #1     ; r29 == 1 si r1 es impar
         beqz    r29, es_par
 
         ; Es impar
