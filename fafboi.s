@@ -63,12 +63,14 @@ calc_loop:
         ; r1 <- (r1 +  1)
         addi    r1, r1, #1
 
-        beqz    r29, calc_loop 
+        ; Si no es máximo saltamos directamente al ciclo par (opt: 9)
+        beqz    r29, par_rapido 
 
-        ; Cambiar el máximo             TODO: mirar esto
+        ; Cambiar el máximo
         sw      secuencia_maximo, r1
         lw      r2, secuencia_maximo
 
+par_rapido:
         ;;; Otro ciclo par aquí dentro      --------------------
 
         sw      secuencia(r4), r1   ; Guardamos en secuencia 
