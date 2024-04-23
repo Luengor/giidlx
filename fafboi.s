@@ -19,6 +19,7 @@ lista_valor_medio:      .float      0
 main:
         ; Cargamos los valores 
         lw      r1, valor_inicial
+        sw      secuencia_maximo, r1
 
         ; R2 es el valor máximo de la secuencia
         ; R3 es la suma de todos los valores de la secuencia (para el valor medio)
@@ -35,23 +36,12 @@ calc_loop:
         sw      secuencia(r4), r1
         addi    r4, r4, #4
 
-        ; Comparamos el valor actual con el máximo (opt: 2)
-        slt     r29, r2, r1  ; r29 == 1 si r2 < r1
-
         ; Sumar al valor medio
         add    r3, r3, r1
 
         ; Comprobamos si el valor es 1 (opt: 3)
         seqi    r28, r1, #1
 
-        ; Comprobamos si es el valor máximo
-        beqz    r29, salir_uno
-
-        ; Cambiar el máximo             TODO: mirar esto
-        sw      secuencia_maximo, r1
-        lw      r2, secuencia_maximo
-
-salir_uno:
         ; Comprobamos si es par     (opt: 4)
         andi    r29, r1, #1     ; r29 == 1 si r1 es impar
 
@@ -68,7 +58,17 @@ salir_uno:
         ; r1 <- (r1 +  1)
         add     r6, r1, r1
         add     r1, r6, r1
+
+        ; Comprobamos si es el valor máximo (opt: 6)
+        sle     r29, r2, r1  ; r29 == 1 si r2 <= r1
+
         addi    r1, r1, #1
+
+        beqz    r29, calc_loop 
+
+        ; Cambiar el máximo             TODO: mirar esto
+        sw      secuencia_maximo, r1
+        lw      r2, secuencia_maximo
 
         j calc_loop
         
