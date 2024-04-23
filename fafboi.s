@@ -19,7 +19,6 @@ lista_valor_medio:      .float      0
 main:
         ; Cargamos los valores 
         lw      r1, valor_inicial
-        sw      secuencia_maximo, r1
 
         ; R2 es el valor máximo de la secuencia
         ; R3 es la suma de todos los valores de la secuencia (para el valor medio)
@@ -29,6 +28,8 @@ main:
         ; R30 es 3
         addi    r30, r0, #3
         
+        ; Escribimos el máximo
+        sw      secuencia_maximo, r1
 
         ;; Bucle chulo de cálculo
 calc_loop:
