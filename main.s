@@ -2,7 +2,7 @@
 
 ;; VARIABLES DE ENTRADA Y SALIDA: NO MODIFICAR ORDEN
 ; VARIABLE DE ENTRADA: (SE PODRA MODIFICAR EL VALOR ENTRE 1 Y 100)
-valor_inicial:          .word       5 
+valor_inicial:          .word       97
 ;; VARIABLES DE SALIDA:
 secuencia:              .space      120*4
 secuencia_tamanho:      .word       0
@@ -11,8 +11,6 @@ secuencia_valor_medio:  .float      0
 lista:                  .space      9*4
 lista_valor_medio:      .float      0
 ;; FIN VARIABLES DE ENTRADA Y SALIDA
-
-tres:                   .word       3
 
                         .text
                         .global     main
@@ -31,7 +29,7 @@ main:
         ; secuencia * 4
 
         ; R30 es 3
-        lw      r30, tres
+        addi    r30, r0, #3
         
 
         ; Bucle chulo de cálculo
@@ -81,8 +79,10 @@ fin_calc:
         ; Calcular media
         movi2fp f1, r3
         movi2fp f3, r4
+        cvti2f  f3, f3
 
         divf    f5, f1, f3
+        cvti2f  f5, f5
 
         sf      secuencia_valor_medio, f5
         
@@ -94,9 +94,12 @@ fin_calc:
         ; f9:  vT/vMax
         ; f11: vT/vIni
         ; f13: vT/vMed
-        lw      r1, valor_inicial
-        movi2fp f1, r1
+        lf      f1, valor_inicial
+        cvti2f  f1, f1
+
         movi2fp f7, r2
+        cvti2f  f7, f7
+
         divf    f9, f3, f7
         divf    f11, f3, f1
         divf    f13, f3, f5
