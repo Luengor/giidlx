@@ -12,6 +12,8 @@ lista:                  .space      9*4
 lista_valor_medio:      .float      0
 ;; FIN VARIABLES DE ENTRADA Y SALIDA
 
+uno_entre_nueve:        .float      0.111111111
+
                         .text
                         .global     main
 
@@ -114,6 +116,8 @@ fin_calc:
         ; f9:  vT/vMax
         ; f11: vT/vIni
         ; f13: vT/vMed
+        ; f21: valor medio de la lista
+        lf      f1, valor_inicial
         cvti2f  f1, f1
 
         movi2fp f7, r2
@@ -126,38 +130,52 @@ fin_calc:
         ; vIni*vT
         multf   f15, f1, f3
         sf      lista, f15
+        addf    f21, f21, f15
 
         ; vMax*vT
         multf   f17, f7, f3
         sf      lista+4, f17
+        addf    f21, f21, f17
 
         ; vMed*vT
         multf   f19, f5, f3
         sf      lista+8, f19
+        addf    f21, f21, f19
 
         ; vIni * vT/vMax
         multf   f15, f1, f9
         sf      lista+12, f15
+        addf    f21, f21, f15
 
         ; vIni * vT/vMed
         multf   f17, f1, f13
         sf      lista+16, f17
+        addf    f21, f21, f17
 
         ; vMax * vT/vIni 
         multf   f19, f7, f11
         sf      lista+20, f19
+        addf    f21, f21, f19
 
         ; vMax * vT/vMed
         multf   f15, f7, f13
         sf      lista+24, f15
+        addf    f21, f21, f15
 
         ; vMed * vT/vIni
         multf   f17, f5, f11
         sf      lista+28, f17
+        addf    f21, f21, f17
 
         ; vMed * vT/vMax 
         multf   f19, f5, f9
         sf      lista+32, f19
+        addf    f21, f21, f19
+
+        ;; Valor medio de la lista
+        lf      f23, uno_entre_nueve
+        multf   f21, f21, f23
+        sf      lista_valor_medio, f21
 
         trap 0;
 
