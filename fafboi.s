@@ -82,6 +82,9 @@ fin_calc:
         divf    f5, f1, f3
         cvti2f  f3, f3
 
+        ; Empezamos a cargar el valor inicial (opt: 1)
+        lf      f1, valor_inicial
+
         sf      secuencia_valor_medio, f5
         
         ;; Lista
@@ -93,7 +96,6 @@ fin_calc:
         ; f11: vT/vIni
         ; f13: vT/vMed
         ; f21: valor medio de la lista
-        lf      f1, valor_inicial
         cvti2f  f1, f1
 
         movi2fp f7, r2
