@@ -180,3 +180,4 @@ fin_calc:
         sf      lista_valor_medio, f21
         
         trap 0;
+
