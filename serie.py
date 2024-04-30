@@ -26,4 +26,5 @@ print("vT/vIni:", vT/vIni)
 print("vT/vMed:", vT/vMed)
 
 print(lista)
+print(sum(lista) / len(lista))
 
