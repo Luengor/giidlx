@@ -95,76 +95,82 @@ fin_calc:
         movi2fp f1, r3
         movi2fp f3, r4
 
+        ; f5:  vMed      la media
         divf    f5, f1, f3
+
+        ; f3:  vT        el número de valores de secuencia 
         cvti2f  f3, f3
 
         ; Empezamos a cargar el valor inicial (opt: 1)
         lf      f1, valor_inicial
 
-        sf      secuencia_valor_medio, f5
-        
-        ;; Lista
+        ; Cargamos el valor máximo en f7
+        movi2fp f7, r2
+
         ; f1:  vIni      el valor inicial
-        ; f3:  vT        el número de valores de secuencia 
-        ; f5:  vMed      la media
-        ; f7:  vMax      el valor máximo
-        ; f9:  vT/vMax
-        ; f11: vT/vIni
-        ; f13: vT/vMed
-        ; f21: valor medio de la lista
         cvti2f  f1, f1
 
-        movi2fp f7, r2
+        ; f7:  vMax      el valor máximo
         cvti2f  f7, f7
 
+        ; Guardar media en memoria
+        sf      secuencia_valor_medio, f5
+        
+        ; f9:  vT/vMax --- Primera división
         divf    f9, f3, f7
-        divf    f11, f3, f1
-        divf    f13, f3, f5
 
         ; vIni*vT
         multf   f15, f1, f3
-        sf      lista, f15
         addf    f21, f21, f15
+        sf      lista, f15
 
         ; vMax*vT
         multf   f17, f7, f3
-        sf      lista+4, f17
         addf    f21, f21, f17
+        sf      lista+4, f17
 
         ; vMed*vT
         multf   f19, f5, f3
-        sf      lista+8, f19
+
+        ; f11: vT/vIni --- Segunda división
+        divf    f11, f3, f1
+
+        ; Sige vMed*vT
         addf    f21, f21, f19
+        sf      lista+8, f19
 
         ; vIni * vT/vMax
         multf   f15, f1, f9
+        addf    f21, f21, f15
         sf      lista+12, f15
-        addf    f21, f21, f15
-
-        ; vIni * vT/vMed
-        multf   f17, f1, f13
-        sf      lista+16, f17
-        addf    f21, f21, f17
-
-        ; vMax * vT/vIni 
-        multf   f19, f7, f11
-        sf      lista+20, f19
-        addf    f21, f21, f19
-
-        ; vMax * vT/vMed
-        multf   f15, f7, f13
-        sf      lista+24, f15
-        addf    f21, f21, f15
-
-        ; vMed * vT/vIni
-        multf   f17, f5, f11
-        sf      lista+28, f17
-        addf    f21, f21, f17
 
         ; vMed * vT/vMax 
         multf   f19, f5, f9
-        sf      lista+32, f19
         addf    f21, f21, f19
+        sf      lista+32, f19
+
+        ; f13: vT/vMed --- Tercera división
+        divf    f13, f3, f5
+
+        ; vIni * vT/vMed
+        multf   f17, f1, f13
+        addf    f21, f21, f17
+        sf      lista+16, f17
+
+        ; vMax * vT/vIni 
+        multf   f19, f7, f11
+        addf    f21, f21, f19
+        sf      lista+20, f19
+
+        ; vMax * vT/vMed
+        multf   f15, f7, f13
+        addf    f21, f21, f15
+        sf      lista+24, f15
+
+        ; vMed * vT/vIni
+        multf   f17, f5, f11
+        addf    f21, f21, f17
+        sf      lista+28, f17
 
         ;; Valor medio de la lista
         multf   f21, f21, f23
