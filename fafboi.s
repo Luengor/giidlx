@@ -25,9 +25,6 @@ main:
         ; Cargamos 1/9 para dentro de ~150 líneas (opt: 8)
         lf      f23, uno_entre_nueve
 
-        ; Escribimos el valor máximo para luego
-        sw      secuencia_maximo, r1
-
         ; R2 es el valor máximo de la secuencia
         ; R3 es la suma de todos los valores de la secuencia (para el valor medio)
         ; R4 es el puntero al valor a escribir de secuencia Y el tamaño de la 
@@ -71,9 +68,8 @@ calc_loop:
         ; Saltar si no es el máximo
         beqz    r29, par_rapido 
 
-        ; Cambiar el máximo
-        sw      secuencia_maximo, r1
-        lw      r2, secuencia_maximo
+        ; Cambiar el máximo (opt: 10)
+        addi    r2, r1, #0
 
 par_rapido:
         ;; Ciclo par rápido (opt: 6)
@@ -97,6 +93,9 @@ fin_calc:
 
         ; f5:  vMed      la media
         divf    f5, f1, f3
+
+        ; Escribimos el valor máximo (opt: 10)
+        sw      secuencia_maximo, r2
 
         ; f3:  vT        el número de valores de secuencia 
         cvti2f  f3, f3
