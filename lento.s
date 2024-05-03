@@ -22,6 +22,7 @@ main:
         ; Cargamos los valores 
         lw      r1, valor_inicial
 
+        ; R1 es el valor actual de la secuencia
         ; R2 es el valor máximo de la secuencia
         ; R3 es la suma de todos los valores de la secuencia (para el valor medio)
         ; R4 es el puntero al valor a escribir de secuencia Y el tamaño de la 
@@ -29,7 +30,6 @@ main:
 
         ; R30 es 3
         addi    r30, r0, #3
-        
 
         ; Bucle chulo de cálculo
 calc_loop:
@@ -53,7 +53,6 @@ salir_uno:
         seqi    r29, r1, #1
         bnez    r29, fin_calc
 
-
         ;; Cálculo de secuencia 
         ; Comprobamos si es par
         andi    r29, r1, #1     ; r29 == 1 si r1 es impar
@@ -76,31 +75,30 @@ fin_calc:
         sw      secuencia_tamanho, r4
 
         ; Calcular media
+        ; f1:  vIni      el valor inicial
         movi2fp f1, r3
+        ; f3:  vT        el número de valores de secuencia 
         movi2fp f3, r4
 
+        ; f5:  vMed      la media
         divf    f5, f1, f3
         cvti2f  f3, f3
 
         sf      secuencia_valor_medio, f5
         
         ;; Lista
-        ; f1:  vIni      el valor inicial
-        ; f3:  vT        el número de valores de secuencia 
-        ; f5:  vMed      la media
-        ; f7:  vMax      el valor máximo
-        ; f9:  vT/vMax
-        ; f11: vT/vIni
-        ; f13: vT/vMed
-        ; f21: valor medio de la lista
         lf      f1, valor_inicial
         cvti2f  f1, f1
 
+        ; f7:  vMax      el valor máximo
         movi2fp f7, r2
         cvti2f  f7, f7
 
+        ; f9:  vT/vMax
         divf    f9, f3, f7
+        ; f11: vT/vIni
         divf    f11, f3, f1
+        ; f13: vT/vMed
         divf    f13, f3, f5
 
         ; vIni*vT

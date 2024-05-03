@@ -17,7 +17,6 @@ uno_entre_nueve:        .float      0.111111111
                         .text
                         .global     main
 
-; Tabulaciones normales vv
 main:
         ; Cargamos los valores 
         lw      r1, valor_inicial
@@ -25,6 +24,7 @@ main:
         ; Cargamos 1/9 para dentro de ~150 líneas (opt: 8)
         lf      f23, uno_entre_nueve
 
+        ; R1 es el valor actual de la secuencia
         ; R2 es el valor máximo de la secuencia
         ; R3 es la suma de todos los valores de la secuencia (para el valor medio)
         ; R4 es el puntero al valor a escribir de secuencia Y el tamaño de la 
