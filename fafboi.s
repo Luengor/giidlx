@@ -64,18 +64,22 @@ calc_loop:
         addi    r1, r1, #1
 
         ; Saltar si no es el máximo
-        beqz    r29, calc_loop 
+        beqz    r29, par_rapido 
 
         ; Cambiar el máximo
         sw      secuencia_maximo, r1
         lw      r2, secuencia_maximo
 
+par_rapido:
+        ;; Ciclo par rápido (opt: 6)
+        sw      secuencia(r4), r1   ; Guardamos en secuencia 
+        addi    r4, r4, #4          ; Sumamos al indice de secuencia
+        add     r3, r3, r1          ; Sumamos al valor medio
+
+es_par:
+        srli    r1, r1, #1          ; Dividimos entre 2
         j calc_loop
         
-es_par:
-        ; Es par
-        srli    r1, r1, #1
-        j calc_loop
 
 fin_calc:
         ; Guardar tamaño
