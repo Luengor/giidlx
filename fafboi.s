@@ -27,10 +27,6 @@ main:
         ; R4 es el puntero al valor a escribir de secuencia Y el tamaño de la 
         ; secuencia * 4
 
-        ; R30 es 3
-        addi    r30, r0, #3
-        
-
         ; Bucle chulo de cálculo
 calc_loop:
         ; Escribimos en la secuencia 
