@@ -36,25 +36,27 @@ calc_loop:
         sw      secuencia(r4), r1
         addi    r4, r4, #4
 
+        ; Comprobamos si es par (opt: 7)
+        andi    r29, r1, #1     ; r29 == 1 si r1 es impar
+
         ; Sumar al valor medio
         add    r3, r3, r1
 
-        ; Comprobamos si el valor es 1 antes (opt: 3)
+        ; Salto si es par
+        beqz    r29, es_par
+
+        ;; Es impar
+        ; Comprobamos si el valor es 1 antes (opt: 3/8)
         seqi    r28, r1, #1
+
+        ; Sumamos en vez de multiplicar (opt: 4)
+        ; r6 <- (r1 + r1)
+        add     r6, r1, r1
 
         ; Comprobamos si el valor es 1
         bnez    r28, fin_calc
 
-        ;; Cálculo de secuencia 
-        ; Comprobamos si es par
-        andi    r29, r1, #1     ; r29 == 1 si r1 es impar
-        beqz    r29, es_par
-
-        ; Es impar
-        ; Sumamos en vez de multiplicar (opt: 4)
-        ; r6 <- (r1 + r1)
         ; r1 <- (r6 + r1) 
-        add     r6, r1, r1
         add     r1, r6, r1
 
         ; Comprobamos si es el valor máximo solo si es impar (opt: 5)
