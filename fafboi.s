@@ -22,6 +22,9 @@ main:
         ; Cargamos los valores 
         lw      r1, valor_inicial
 
+        ; Cargamos 1/9 para dentro de ~150 líneas (opt: 8)
+        lf      f23, uno_entre_nueve
+
         ; Escribimos el valor máximo para luego
         sw      secuencia_maximo, r1
 
@@ -164,7 +167,6 @@ fin_calc:
         addf    f21, f21, f19
 
         ;; Valor medio de la lista
-        lf      f23, uno_entre_nueve
         multf   f21, f21, f23
         sf      lista_valor_medio, f21
 
